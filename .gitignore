@@ -1,1 +1,3 @@
 node_modules
+backend/rest_countries.db
+backend/package-lock.json
