@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const crypto = require("crypto");
 
 const generateHash = async (string) => {
   const saltRounds = 10; //$2aod!234[hash][salt]
@@ -16,4 +17,9 @@ const verify = async (formpassword, dbpassword) => {
   }
 };
 
-module.exports = { generateHash, verify };
+const generateHashedKey = (apiKey) => {
+  const hashedKey = crypto.createHash("sha256").update(apiKey).digest("hex");
+  return hashedKey;
+};
+
+module.exports = { generateHash, verify, generateHashedKey };

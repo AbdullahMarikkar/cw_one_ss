@@ -32,6 +32,11 @@ app.post("/login", async (req, res) => {
   res.json(result);
 });
 
+app.post("/logout", async (req, res) => {
+  const result = await userService.logout(req);
+  res.json(result);
+});
+
 app.post("/generateApiKey", sessionMiddleware, async (req, res) => {
   const result = await apiKeyService.createApiKey(req);
   res.json(result);

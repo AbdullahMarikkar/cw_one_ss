@@ -12,13 +12,13 @@ async function apiKeyMiddleware(req, res, next) {
   try {
     const result = await apiKeyService.validateApiKey(key);
 
-    if (!data.success) {
+    if (!result.success) {
       return res.status(403).json({
         error: "Invalid key",
       });
     }
-    // TODO : Update Last Used Field of API key
-    req.key = result.data;
+    await apiKeyService.updateLastUsed(result.data.id);
+
     next();
   } catch (err) {
     res.status(500).json({

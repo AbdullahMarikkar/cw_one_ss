@@ -28,7 +28,16 @@ async function authenticate(req) {
       req.session.isAuthenticated = true;
       return { message: "Logged In Successfully" };
     }
-  } catch (ex) {}
+  } catch (err) {}
 }
 
-module.exports = { authenticate, create };
+async function logout(req) {
+  try {
+    req.session.destroy();
+    createResponse(true, "Successfully Logged Out");
+  } catch (err) {
+    createResponse(false, "Log Out Failed");
+  }
+}
+
+module.exports = { authenticate, create, logout };
